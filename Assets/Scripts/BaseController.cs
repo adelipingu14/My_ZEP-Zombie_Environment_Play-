@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseController : MonoBehaviour
 {
-    protected Rigidbody _rigidbody;
+    protected Rigidbody2D _rigidbody;
 
     [SerializeField] private SpriteRenderer characterRenderer;
 
@@ -17,7 +17,7 @@ public class BaseController : MonoBehaviour
 
     protected virtual void Awake()
     { 
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     protected virtual void Start()
