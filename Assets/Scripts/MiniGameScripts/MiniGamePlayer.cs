@@ -27,9 +27,20 @@ public class MiniGamePlayer : MonoBehaviour
 
         float vertical = Input.GetAxisRaw("Vertical");
         Vector2 v = _rigidbody.velocity;
-        v.x = forwordSpeed;               // 자동 전진
-        v.y = vertical * moveSpeed;       // 위아래 조작
+        v.x = forwordSpeed;               
+        v.y = vertical * moveSpeed;       
         _rigidbody.velocity = v;
 
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (isDead)
+            return;
+
+        isDead = true;
+        deathCooldown = 1f;
+
+        miniGameManager.GameOver();
     }
 }
