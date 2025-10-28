@@ -7,6 +7,7 @@ public class BgLooper : MonoBehaviour
     public int numBgCount = 3;
     public int obstacleCount = 0;
     public Vector3 obstacleLastPosition = Vector3.zero;
+    public Vector3 zombiespawnPosition = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,5 +41,13 @@ public class BgLooper : MonoBehaviour
         {
             obstacleLastPosition = obstacle.SetRandomPlace(obstacleLastPosition, obstacleCount);
         }
+
+        Zombie zombie = collision.GetComponent<Zombie>();
+        if (zombie)
+        {
+            obstacleLastPosition = zombie.SetZombieSpawn(obstacleLastPosition, obstacleCount);
+            return;
+        }
     }
 }
+
