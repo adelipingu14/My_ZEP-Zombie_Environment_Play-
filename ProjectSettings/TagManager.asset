@@ -15,7 +15,7 @@ TagManager:
   - Water
   - UI
   - Score
-  - 
+  - Player
   - 
   - 
   - 
@@ -43,4 +43,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 1877682327
+    locked: 0
+  - name: GoundDeco
+    uniqueID: 1572844369
+    locked: 0
+  - name: WorldObject
+    uniqueID: 163208539
+    locked: 0
+  - name: Character
+    uniqueID: 3025687027
+    locked: 0
+  - name: Roof
+    uniqueID: 3637445191
     locked: 0
