@@ -8,14 +8,28 @@ public class BuildingVisibilityManager : MonoBehaviour
     [SerializeField] private GameObject upperStair;
     [SerializeField] private GameObject floor02;
 
-    private void Start()
+    public BuildingSection CurrentSection { get; private set; } = BuildingSection.Floor1Side;
+
+    private void Awake()
     {
-        ChangeSection(BuildingSection.Floor1Side);
+        ChangeSection(BuildingSection.Floor1Side, true);
     }
 
-    public void ChangeSection(BuildingSection section)
+    public bool ChangeSection(BuildingSection targetSection)
     {
-        switch (section)
+        return ChangeSection(targetSection, false);
+    }
+
+    private bool ChangeSection(BuildingSection targetSection, bool force)
+    {
+        if (!force && !CanTransitionTo(targetSection))
+        {
+            return false;
+        }
+
+        CurrentSection = targetSection;
+
+        switch (targetSection)
         {
             case BuildingSection.Floor1Side:
                 SetActiveGroup(true, true, false, false, false);
@@ -29,6 +43,23 @@ public class BuildingVisibilityManager : MonoBehaviour
                 SetActiveGroup(false, false, true, true, true);
                 break;
         }
+
+        return true;
+    }
+
+    private bool CanTransitionTo(BuildingSection targetSection)
+    {
+        if (targetSection == CurrentSection)
+            return false;
+
+        return (CurrentSection, targetSection) switch
+        {
+            (BuildingSection.Floor1Side, BuildingSection.Landing) => true,
+            (BuildingSection.Landing, BuildingSection.Floor1Side) => true,
+            (BuildingSection.Landing, BuildingSection.Floor2Side) => true,
+            (BuildingSection.Floor2Side, BuildingSection.Landing) => true,
+            _ => false,
+        };
     }
 
     private void SetActiveGroup(bool floor01On, bool lowerStairOn, bool landingOn, bool upperStairOn, bool floor02On)
